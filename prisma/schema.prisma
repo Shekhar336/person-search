@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // Change to your database provider, e.g., mysql or sqlite
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String  @id @default(cuid()) // UUID or cuid for unique ID
+  name        String  @db.VarChar(255)
+  email       String  @unique @db.VarChar(255) // Ensures unique email addresses
+  phoneNumber String  @db.VarChar(15) // Limited to typical phone number length
+
+  // Add timestamps if required
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
